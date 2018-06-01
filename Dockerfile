@@ -1,6 +1,8 @@
+FROM composer:latest
+
 FROM php:7.2-fpm-alpine
 
-FROM composer:latest
+
 
 
 
