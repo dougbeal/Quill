@@ -1,17 +1,19 @@
-FROM composer:latest
 
-FROM php:7.2-fpm-alpine
-
-
-
-
-
+FROM composer:latest AS quill-build
 
 VOLUME /var/www/html/Quill
+WORKDIR /var/www/html/Quill
+COPY . .
+RUN composer install
 
-COPY . /var/www/html/Quill
+FROM php:7.2-fpm-alpine
+WORKDIR /var/www/html/Quill
+COPY --from=quill-build /var/www/html/Quill .
 
 
-RUN cd /var/www/html/Quill && \
-    composer install
 
+
+
+
+# docker build . -t quill:latest
+# container-diff analyze daemon://quill
